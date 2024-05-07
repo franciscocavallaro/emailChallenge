@@ -1,12 +1,11 @@
 import { Router, Request, Response } from "express";
+import UserRouter from "../domain/users/UserRouter";
 
 const router = Router();
 
-router.get("/", (req: Request, res: Response) => {
-    res.json({ message: "Welcome to our API!" });
-});
+router.use("/user", UserRouter)
 
-router.get("/hello", (req: Request, res: Response) => {
+router.use("/admin", (req: Request, res: Response) => {
     res.json({ message: "Hello from server!" });
 });
 

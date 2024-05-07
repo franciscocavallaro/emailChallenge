@@ -1,5 +1,5 @@
 import {UserRepositoryInterface} from "../interfaces/UserRepositoryInterface";
-import {PrismaClient, User} from "@prisma/client";
+import {PrismaClient, Role, User} from "@prisma/client";
 
 export class UserRepository implements UserRepositoryInterface {
 
@@ -25,14 +25,20 @@ export class UserRepository implements UserRepositoryInterface {
         return user ? user : null
     }
 
-    registerUser(name: string, email: string, password: string): Promise<User | null> {
-        return this.prismaClient.user.create({
-            data: {
-                name: name,
-                email: email,
-                password: password
-            }
-        })
+    async registerUser(name: string, email: string, password: string, role: Role): Promise<User | null> {
+        try {
+            return await this.prismaClient.user.create({
+                data: {
+                    name: name,
+                    email: email,
+                    password: password,
+                    role: role
+                }
+            });
+        } catch (error) {
+            console.error("Error creating user: ", error);
+            return null;
+        }
     }
 
 }
