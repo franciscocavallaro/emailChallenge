@@ -36,7 +36,6 @@ export class UserRepository implements UserRepositoryInterface {
                 }
             });
         } catch (error) {
-            console.error("Error creating user: ", error);
             return null;
         }
     }

@@ -6,38 +6,40 @@ import Router from "../../../../router/Router";
 
 export class UserController implements UserControllerInterface {
 
-
     userService: UserServiceInterface;
 
     constructor(userService: UserServiceInterface) {
         this.userService = userService
     }
 
-    loginUser(req: Request, res: Response): any {
+    async loginUser(req: Request, res: Response): Promise<string | any> {
         const email = req.body.email
         const password = req.body.password
         try {
-            const user = this.userService.userRepository.loginUser(email, password)
+            const user = await this.userService.userRepository.loginUser(email, password)
             if (user != null) {
                 const token = Token.generateToken(user)
-                return res.status(200).json({token: token})
+                return {token}
             }
         } catch (error) {
-            throw new Error(res.statusMessage)
+            res.status(400)
         }
     }
 
-    registerUser(req: Request, res: Response): any {
-        console.log(req.body)
-        const email = req.body.email
-        const password = req.body.password
-        const name = req.body.name
-        const role = req.body.role
+    async registerUser(req: Request, res: Response): Promise<void> {
+        const email = req.body.email;
+        const password = req.body.password;
+        const name = req.body.name;
+        const role = req.body.role;
         try {
-            const response = this.userService.userRepository.registerUser(name, email, password, role)
-            return res.status(201).json(response)
+            const response = await this.userService.userRepository.registerUser(name, email, password, role);
+            if (response == null) {
+                res.status(400).json({message: 'User with that email already exists'})
+            } else {
+                res.status(201).json({message: 'User registered successfully', user: response});
+            }
         } catch (error) {
-            throw new Error(res.statusMessage)
+            res.status(500).json({error: error});
         }
     }
 
