@@ -4,12 +4,13 @@ import {EmailRepository} from "./repository/implementations/EmailRepository";
 import {EmailController} from "./controller/implementations/EmailController";
 import {MailGunEmailService} from "./service/implentations/MailGunEmailService";
 import {SendGridEmailService} from "./service/implentations/SendGridEmailService";
+import {NodeMailgun} from "ts-mailgun";
 
 const emailRouter = Router();
 
 const prismaClient = new PrismaClient();
 const emailRepository = new EmailRepository(prismaClient);
-const emailService = new SendGridEmailService(emailRepository);
+const emailService = new MailGunEmailService(emailRepository)
 const emailController = new EmailController(emailService);
 
 emailRouter.post("/sendEmail", async (req, res) => {

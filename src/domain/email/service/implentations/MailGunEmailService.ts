@@ -1,15 +1,16 @@
 import {EmailServiceInterface} from "../interfaces/EmailServiceInterface";
 import {Mail, PrismaClient, User} from "@prisma/client";
 import {EmailRepositoryInterface} from "../../repository/interfaces/EmailRepositoryInterface";
-import {NodeMailgun} from "ts-mailgun";
+import { NodeMailgun } from "ts-mailgun";
 
 export class MailGunEmailService implements EmailServiceInterface {
 
     mailGun: NodeMailgun
     emailRepository: EmailRepositoryInterface
 
-    constructor(mailGun: NodeMailgun, emailRepository: EmailRepositoryInterface) {
+    constructor(emailRepository: EmailRepositoryInterface) {
         this.mailGun = new NodeMailgun()
+        this.mailGun.apiKey = process.env.MAILGUN_API_KEY as string
         this.emailRepository = emailRepository
     }
 
@@ -19,7 +20,7 @@ export class MailGunEmailService implements EmailServiceInterface {
         this.mailGun.fromTitle = title
         this.mailGun.init()
         try {
-            await this.mailGun.send(receiverEmail, title, content)
+            // await this.mailGun.send(receiverEmail, title, content)
             return await this.emailRepository.sendEmail(senderEmail, receiverEmail, content, title, senderId)
         }
         catch (error) {
