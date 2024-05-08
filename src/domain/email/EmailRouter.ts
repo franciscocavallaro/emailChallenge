@@ -10,7 +10,7 @@ const emailRouter = Router();
 
 const prismaClient = new PrismaClient();
 const emailRepository = new EmailRepository(prismaClient);
-const emailService = new MailGunEmailService(emailRepository)
+const emailService = new SendGridEmailService(emailRepository)
 const emailController = new EmailController(emailService);
 
 emailRouter.post("/sendEmail", async (req, res) => {

@@ -20,13 +20,7 @@ export class SendGridEmailService implements EmailServiceInterface {
             text: content
         }
         try {
-            // await sgMail.send(email, false, (error, result) => {
-            //     if (error) {
-            //         console.error("hola")
-            //     } else {
-            //
-            //     }
-            // })
+            // await sgMail.send(email)
             return await this.emailRepository.sendEmail(senderEmail, receiverEmail, content, title, senderId)
         } catch (error) {
             return null
