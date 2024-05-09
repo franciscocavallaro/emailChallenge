@@ -9,7 +9,12 @@ export class Token {
         if (!secret) {
             throw new Error("JWT_SECRET is not defined in the environment variables");
         }
-        return jwt.sign(data, secret, {expiresIn: "1h"});
+        const payload = {
+            id: data.id,
+            email: data.email,
+            role: data.role
+        }
+        return jwt.sign(payload, secret, {expiresIn: "1h"});
     }
 
 
@@ -25,7 +30,8 @@ export class Token {
                     res.status(401).json({error: "Unauthorized"});
                     return;
                 }
-                jwt.verify(token, secret);
+                const decoded = jwt.verify(token, secret) as { id: number, email: string, role: string };
+                (req as any).role = decoded.role;
                 next();
             } catch (error) {
                 res.status(401).json({error: "Unauthorized"});

@@ -29,6 +29,7 @@ model Mail {
   sender        User    @relation(fields: [senderId], references: [id])
   senderId      Int
   receiverEmail String
+  createdAt     DateTime @default(now())
 }
 
 enum Role {
