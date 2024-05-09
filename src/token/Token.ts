@@ -1,6 +1,7 @@
 import * as jwt from "jsonwebtoken";
 import {User} from "@prisma/client";
 import {NextFunction, Request, Response} from "express";
+import {UserRequest} from "../utils/UserUtils";
 
 export class Token {
 
@@ -30,8 +31,11 @@ export class Token {
                     res.status(401).json({error: "Unauthorized"});
                     return;
                 }
-                const decoded = jwt.verify(token, secret) as { id: number, email: string, role: string };
-                (req as any).role = decoded.role;
+                (req as any as UserRequest).user = jwt.verify(token, secret) as {
+                    id: number,
+                    email: string,
+                    role: string
+                }; // Attach the decoded token to the request object
                 next();
             } catch (error) {
                 res.status(401).json({error: "Unauthorized"});

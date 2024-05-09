@@ -13,7 +13,7 @@ export class AdminController implements AdminControllerInterface {
 
     async getStats(req: Request, res: Response): Promise<void> {
         Token.verifyToken()(req, res, async () => {
-            const role = (req as any).role;
+            const role = (req as any).user.role;
 
             if (role !== 'ADMIN') {
                 res.status(403).json({message: 'Forbidden'});

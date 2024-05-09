@@ -14,14 +14,14 @@ export class MailGunEmailService implements EmailServiceInterface {
         this.emailRepository = emailRepository
     }
 
-    async sendEmail(senderEmail: string, receiverEmail: string, content: string, title: string, senderId: number): Promise<Mail | null> {
+    async sendEmail(senderEmail: string, receiverEmail: string, content: string, title: string): Promise<Mail | null> {
         this.mailGun.domain = process.env.MAILGUN_DOMAIN as string
         this.mailGun.fromEmail = senderEmail
         this.mailGun.fromTitle = title
         this.mailGun.init()
         try {
             // await this.mailGun.send(receiverEmail, title, content)
-            return await this.emailRepository.sendEmail(senderEmail, receiverEmail, content, title, senderId)
+            return await this.emailRepository.sendEmail(senderEmail, receiverEmail, content, title)
         }
         catch (error) {
             return null

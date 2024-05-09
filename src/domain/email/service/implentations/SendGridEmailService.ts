@@ -12,7 +12,7 @@ export class SendGridEmailService implements EmailServiceInterface {
         sgMail.setApiKey(process.env.SENDGRID_API_KEY as string)
     }
 
-    async sendEmail(senderEmail: string, receiverEmail: string, content: string, title: string, senderId: number): Promise<Mail | null> {
+    async sendEmail(senderEmail: string, receiverEmail: string, content: string, title: string): Promise<Mail | null> {
         const email = {
             to: receiverEmail,
             from: senderEmail,
@@ -21,7 +21,7 @@ export class SendGridEmailService implements EmailServiceInterface {
         }
         try {
             // await sgMail.send(email)
-            return await this.emailRepository.sendEmail(senderEmail, receiverEmail, content, title, senderId)
+            return await this.emailRepository.sendEmail(senderEmail, receiverEmail, content, title)
         } catch (error) {
             return null
         }

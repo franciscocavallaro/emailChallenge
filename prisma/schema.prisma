@@ -27,6 +27,7 @@ model Mail {
   title         String
   content       String
   sender        User    @relation(fields: [senderId], references: [id])
+  senderEmail   String
   senderId      Int
   receiverEmail String
   createdAt     DateTime @default(now())

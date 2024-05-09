@@ -9,13 +9,28 @@ export class EmailRepository implements EmailRepositoryInterface {
         this.prismaClient = prismaClient
     }
 
-    async sendEmail(senderEmail: string, receiverEmail: string, content: string, title: string, senderId: number): Promise<Mail | null> {
+    async sendEmail(senderEmail: string, receiverEmail: string, content: string, title: string): Promise<Mail | null> {
+        const senderUser = await this.prismaClient.user.findUnique({
+            where: {
+                email: senderEmail,
+            },
+        });
+
+        if (!senderUser) {
+            throw new Error('Sender not found');
+        }
+
         const mail = await this.prismaClient.mail.create({
             data: {
+                sender: {
+                    connect: {
+                        id: senderUser.id,
+                    },
+                },
                 content: content,
                 title: title,
-                senderId: senderId,
-                receiverEmail: receiverEmail
+                senderEmail: senderEmail,
+                receiverEmail: receiverEmail,
             }
         });
         return mail ? mail : null
