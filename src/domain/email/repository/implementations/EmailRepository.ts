@@ -36,4 +36,16 @@ export class EmailRepository implements EmailRepositoryInterface {
         return mail ? mail : null
     }
 
+    async getEmailCountToday(senderId: number): Promise<number> {
+        return this.prismaClient.mail.count({
+            where: {
+                senderId: senderId,
+                createdAt: {
+                    gte: new Date(new Date().setHours(0, 0, 0, 0)),
+                    lte: new Date(new Date().setHours(23, 59, 59, 999)),
+                },
+            },
+        });
+    }
+
 }
