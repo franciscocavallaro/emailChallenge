@@ -6,12 +6,15 @@ import {MailGunEmailService} from "./service/implentations/MailGunEmailService";
 import {SendGridEmailService} from "./service/implentations/SendGridEmailService";
 import {NodeMailgun} from "ts-mailgun";
 import {Token} from "../../token/Token";
+import {EmailService} from "./service/implentations/EmailService";
 
 const emailRouter = Router();
 
 const prismaClient = new PrismaClient();
 const emailRepository = new EmailRepository(prismaClient);
-const emailService = new MailGunEmailService(emailRepository)
+const mailGunEmailService = new MailGunEmailService(emailRepository);
+const sendGridEmailService = new SendGridEmailService(emailRepository);
+const emailService = new EmailService(emailRepository, [mailGunEmailService, sendGridEmailService], 2)
 const emailController = new EmailController(emailService);
 
 emailRouter.post("/sendEmail", Token.verifyToken(), async (req, res) => {
@@ -23,7 +26,9 @@ emailRouter.post("/sendEmail", Token.verifyToken(), async (req, res) => {
             res.status(400).json({error: 'Error sending email'});
         }
     } catch (error) {
-        res.status(500).json({error});
+        if (error instanceof Error) {
+            res.status(500).json({error: error.message});
+        }
     }
 });
 
