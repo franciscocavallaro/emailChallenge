@@ -1,7 +1,7 @@
 name: Email challenge action
 
 on:
-  push:
+  push
 
 jobs:
   test:
