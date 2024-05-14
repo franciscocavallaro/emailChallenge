@@ -1,0 +1,61 @@
+openapi: 3.0.1
+info:
+  description: Documentation of my API
+  title: My API
+  version: 1.0.0
+servers:
+- url: http://localhost:3000/
+- url: https://localhost:3000/
+paths:
+  /api/user/loginUser:
+    post:
+      responses:
+        "200":
+          content: {}
+          description: OK
+        "401":
+          content: {}
+          description: Unauthorized
+        "500":
+          content: {}
+          description: Internal Server Error
+      x-accepts: application/json
+  /api/user/registerUser:
+    post:
+      responses:
+        "500":
+          content: {}
+          description: Internal Server Error
+      x-accepts: application/json
+  /api/admin/stats:
+    get:
+      responses:
+        default:
+          content: {}
+          description: ""
+      x-accepts: application/json
+  /api/email/sendEmail:
+    post:
+      parameters:
+      - in: header
+        name: authorization
+        schema:
+          type: string
+      responses:
+        "200":
+          content: {}
+          description: OK
+        "400":
+          content: {}
+          description: Bad Request
+        "401":
+          content: {}
+          description: Unauthorized
+        "500":
+          content: {}
+          description: Internal Server Error
+      x-accepts: application/json
+components:
+  schemas: {}
+x-original-swagger-version: "2.0"
+

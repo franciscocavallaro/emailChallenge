@@ -20,7 +20,7 @@ export class AdminController implements AdminControllerInterface {
                 return;
             } else {
                 const stats = await this.adminService.getStats(req, res);
-                res.json(stats);
+                res.status(200).json(stats);
             }
         });
     }
