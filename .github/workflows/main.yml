@@ -1,11 +1,14 @@
 name: Email challenge action
 
 on:
-  - push
+  push:
 
 jobs:
   test:
     runs-on: ubuntu-latest
+    env:
+      JWT_SECRET: ${{ secrets.JWT_SECRET }}
+      SENDGRID_API_KEY: ${{ secrets.SENDGRID_API_KEY }}
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
