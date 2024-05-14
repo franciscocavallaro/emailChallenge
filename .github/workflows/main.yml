@@ -9,6 +9,8 @@ jobs:
     env:
       JWT_SECRET: ${{ secrets.JWT_SECRET }}
       SENDGRID_API_KEY: ${{ secrets.SENDGRID_API_KEY }}
+      MAILGUN_API_KEY: ${{ secrets.MAILGUN_API_KEY}}
+      MAILGUN_DOMAIN: ${{ secrets.MAILGUN_DOMAIN }}
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
