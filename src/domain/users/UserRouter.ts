@@ -4,11 +4,12 @@ import {UserRepository} from "./repository/implementations/UserRepository";
 import {UserController} from "./controller/implementations/UserController";
 import {PrismaClient} from "@prisma/client";
 import {Request, Response} from "express";
+import prisma from "../../../client";
 
 const userRouter = Router();
 
 const prismaClient = new PrismaClient();
-const userRepository = new UserRepository(prismaClient);
+const userRepository = new UserRepository(prisma);
 const userService = new UserService(userRepository);
 const userController = new UserController(userService);
 

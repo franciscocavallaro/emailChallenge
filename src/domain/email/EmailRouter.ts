@@ -1,17 +1,15 @@
-import {PrismaClient} from "@prisma/client";
 import {Router} from "express";
 import {EmailRepository} from "./repository/implementations/EmailRepository";
 import {EmailController} from "./controller/implementations/EmailController";
 import {MailGunEmailService} from "./service/implentations/MailGunEmailService";
 import {SendGridEmailService} from "./service/implentations/SendGridEmailService";
-import {NodeMailgun} from "ts-mailgun";
 import {Token} from "../../token/Token";
 import {EmailService} from "./service/implentations/EmailService";
+import prisma from "../../../client";
 
 const emailRouter = Router();
 
-const prismaClient = new PrismaClient();
-const emailRepository = new EmailRepository(prismaClient);
+const emailRepository = new EmailRepository(prisma);
 const mailGunEmailService = new MailGunEmailService(emailRepository);
 const sendGridEmailService = new SendGridEmailService(emailRepository);
 const emailService = new EmailService(emailRepository, [mailGunEmailService, sendGridEmailService], 2)

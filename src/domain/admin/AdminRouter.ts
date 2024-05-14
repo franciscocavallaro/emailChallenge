@@ -2,12 +2,11 @@ import { Router } from "express";
 import {AdminController} from "./controller/implementations/AdminController";
 import {AdminService} from "./service/implementations/AdminService";
 import {AdminRepository} from "./repository/implementations/AdminRepository";
-import {PrismaClient} from "@prisma/client";
+import prisma from "../../../client";
 
 const adminRouter = Router();
 
-const prismaClient = new PrismaClient();
-const adminRepository = new AdminRepository(prismaClient);
+const adminRepository = new AdminRepository(prisma);
 const adminService = new AdminService(adminRepository);
 const adminController = new AdminController(adminService);
 
