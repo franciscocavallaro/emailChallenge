@@ -50,8 +50,8 @@
                 "role": {
                   "type": "string",
                   "enum": [
-                    "user",
-                    "admin"
+                    "USER",
+                    "ADMIN"
                   ]
                 }
               }

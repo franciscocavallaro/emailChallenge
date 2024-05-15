@@ -16,6 +16,6 @@ const server = app.listen(port, () => {
     console.log(`[server]: Server is running at http://localhost:${port}`);
 });
 
-app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerOutput));
+app.use('/swagger', swaggerUi.serve, swaggerUi.setup(swaggerOutput));
 
 export default server;
