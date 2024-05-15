@@ -9,14 +9,6 @@ export class UserRepository implements UserRepositoryInterface {
         this.prismaClient = prismaClient
     }
 
-    async getUserByEmail(email: string): Promise<User | null> {
-        const user = await this.prismaClient.user.findFirst({
-                where: {email: email}
-            }
-        )
-        return user ? user : null
-    }
-
     async loginUser(email: string, password: string): Promise<User | null> {
         const user = await this.prismaClient.user.findFirst({
                 where: {email: email, password: password}

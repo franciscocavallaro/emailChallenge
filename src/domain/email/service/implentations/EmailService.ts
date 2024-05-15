@@ -21,6 +21,15 @@ export class EmailService implements EmailServiceInterface {
             throw new Error(`You have reached the limit of ${this.maxLimit} emails per day`);
         }
 
+        const receiverEmailRegex = /\S+@\S+\.\S+/;
+        if (!receiverEmailRegex.test(receiverEmail)) {
+            throw new Error("Invalid email address");
+        }
+
+        if (!title) {
+            throw new Error("Title is required to send an email");
+        }
+
         for (const emailService of this.emailServices) {
             try {
                 const response = await emailService.sendEmail(senderEmail, receiverEmail, content, title, senderId);

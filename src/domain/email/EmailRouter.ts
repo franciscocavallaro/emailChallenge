@@ -21,12 +21,10 @@ emailRouter.post("/sendEmail", Token.verifyToken(), async (req, res) => {
         if (email) {
             res.status(200).json(email);
         } else {
-            res.status(400).json({error: 'Error sending email'});
+            res.status(500).json({error: 'Error sending email'});
         }
     } catch (error) {
-        if (error instanceof Error) {
-            res.status(500).json({error: error.message});
-        }
+        res.status(400).json({error: (error as Error).message});
     }
 });
 

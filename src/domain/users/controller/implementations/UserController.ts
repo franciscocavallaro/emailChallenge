@@ -27,19 +27,15 @@ export class UserController implements UserControllerInterface {
     }
 
     async registerUser(req: Request, res: Response): Promise<void> {
-        const email = req.body.email;
-        const password = req.body.password;
-        const name = req.body.name;
-        const role = req.body.role;
         try {
-            const response = await this.userService.userRepository.registerUser(name, email, password, role);
+            const response = await this.userService.registerUser(req, res);
             if (response == null) {
                 res.status(400).json({message: 'User with that email already exists'})
             } else {
                 res.status(201).json({message: 'User registered successfully', user: response});
             }
         } catch (error) {
-            res.status(500).json({error: error});
+            res.status(500).json({error: (error as Error).message});
         }
     }
 

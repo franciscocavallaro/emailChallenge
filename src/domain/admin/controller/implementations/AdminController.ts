@@ -16,7 +16,7 @@ export class AdminController implements AdminControllerInterface {
             const role = (req as any).user.role;
 
             if (role !== 'ADMIN') {
-                res.status(403).json({message: 'Forbidden'});
+                res.status(403).json({message: 'Forbidden. Just admins can access the stats'});
                 return;
             } else {
                 const stats = await this.adminService.getStats(req, res);

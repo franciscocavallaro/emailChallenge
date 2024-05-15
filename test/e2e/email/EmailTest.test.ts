@@ -48,7 +48,7 @@ describe('Email E2E test', () => {
                 title: 'Test',
                 content: 'Testing email',
                 senderEmail: user.email,
-                receiverEmail: 'b@b',
+                receiverEmail: 'b@b.com',
             })
             .set('Authorization', `Bearer ${loginResponse.body.token}`);
         expect(emailResponse.statusCode).toEqual(200);

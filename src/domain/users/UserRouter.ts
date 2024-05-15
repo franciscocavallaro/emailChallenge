@@ -19,7 +19,7 @@ userRouter.post("/loginUser", async (req: Request, res: Response) => {
         if (token) {
             res.status(200).json(token);
         } else {
-            res.status(401).json({ error: 'Invalid credentials' });
+            res.status(401).json({ error: 'Invalid email or password' });
         }
     } catch (error) {
         res.status(500).json({ error});
