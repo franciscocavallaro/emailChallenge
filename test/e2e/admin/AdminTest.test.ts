@@ -28,7 +28,7 @@ describe('Admin E2E test', () => {
         prismaMock.user.findFirst.mockResolvedValue(user);
 
         const loginResponse = await request(app)
-            .post('/api/user/loginUser')
+            .post('/api/user/login_user')
             .send({
                 email : "ccavallaro@gmail.com",
                 password : "boquita",
@@ -52,7 +52,7 @@ describe('Admin E2E test', () => {
         prismaMock.user.findUnique.mockResolvedValue(user);
 
         const loginResponse = await request(app)
-            .post('/api/user/loginUser')
+            .post('/api/user/login_user')
             .send({
                 email : "ccavallaro@gmail.com",
                 password : "boquita",
