@@ -15,15 +15,15 @@
 
 ### _Endpoints:_
 
-    /api/user/registerUser: 
+    /api/user/register_user: 
   Should send the name, email, password (8 chars or longer) and the role (ADMIN or USER).
   ##
     
-    /api/user/loginUser:
+    /api/user/login_user:
   Should send the email and the password. A token would be generated if the log in was succesful.  
   ##
     
-    /api/email/sendEmail:
+    /api/email/send_email:
   Should send the receiver email, the title (required) and the content of the mail that may be empty. To send an email you should be authenticated.
   ##
     
