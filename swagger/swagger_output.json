@@ -26,7 +26,7 @@
     "application/json"
   ],
   "paths": {
-    "/api/user/registerUser": {
+    "/api/user/register_user": {
       "post": {
         "description": "Endpoint to register a user or an admin. If no role is provided, the user will be registered as a normal user",
         "parameters": [
@@ -71,7 +71,7 @@
         }
       }
     },
-    "/api/user/loginUser": {
+    "/api/user/login_user": {
       "post": {
         "description": "Endpoint to login a user",
         "parameters": [
@@ -106,7 +106,7 @@
         }
       }
     },
-    "/api/email/sendEmail": {
+    "/api/email/send_email": {
       "post": {
         "description": "Endpoint to send an email to a user",
         "parameters": [

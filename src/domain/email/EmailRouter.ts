@@ -15,7 +15,7 @@ const sendGridEmailService = new SendGridEmailService(emailRepository);
 const emailService = new EmailService(emailRepository, [mailGunEmailService, sendGridEmailService], 2)
 const emailController = new EmailController(emailService);
 
-emailRouter.post("/sendEmail", Token.verifyToken(), async (req, res) => {
+emailRouter.post("/send_email", Token.verifyToken(), async (req, res) => {
     try {
         const email = await emailController.sendEmail(req, res);
         if (email) {

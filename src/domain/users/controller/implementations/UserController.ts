@@ -2,7 +2,6 @@ import {UserControllerInterface} from "../interfaces/UserControllerInterface";
 import {UserServiceInterface} from "../../service/interfaces/UserServiceInterface";
 import {Request, Response} from "express";
 import {Token} from "../../../../token/Token";
-import Router from "../../../../router/Router";
 
 export class UserController implements UserControllerInterface {
 

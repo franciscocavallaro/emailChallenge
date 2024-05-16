@@ -13,7 +13,7 @@ const userRepository = new UserRepository(prisma);
 const userService = new UserService(userRepository);
 const userController = new UserController(userService);
 
-userRouter.post("/loginUser", async (req: Request, res: Response) => {
+userRouter.post("/login_user", async (req: Request, res: Response) => {
     try {
         const token = await userController.loginUser(req, res);
         if (token) {
@@ -26,7 +26,7 @@ userRouter.post("/loginUser", async (req: Request, res: Response) => {
     }
 });
 
-userRouter.post("/registerUser", async (req: Request, res: Response) => {
+userRouter.post("/register_user", async (req: Request, res: Response) => {
     try {
         await userController.registerUser(req, res);
     } catch (error) {
