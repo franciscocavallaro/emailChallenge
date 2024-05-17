@@ -46,13 +46,6 @@
                 },
                 "password": {
                   "type": "string"
-                },
-                "role": {
-                  "type": "string",
-                  "enum": [
-                    "USER",
-                    "ADMIN"
-                  ]
                 }
               }
             }

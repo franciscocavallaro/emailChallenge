@@ -1,10 +1,10 @@
 import {UserServiceInterface} from "../interfaces/UserServiceInterface";
 import {UserRepositoryInterface} from "../../repository/interfaces/UserRepositoryInterface";
 import {Request, Response} from "express";
-import {User} from "@prisma/client";
+import {Role, User} from "@prisma/client";
 
 
-export class UserService implements UserServiceInterface{
+export class UserService implements UserServiceInterface {
 
     userRepository: UserRepositoryInterface;
 
@@ -40,8 +40,8 @@ export class UserService implements UserServiceInterface{
             throw new Error("Password must be at least 8 characters long");
         }
 
-
-        if (email && name && password && role) {
+        if (email && name && password) {
+            const role = this.checkIfRoleWasProvided(req.body.role)
             const user = await this.userRepository.registerUser(name, email, password, role)
             if (user == undefined) {
                 return null
@@ -51,4 +51,17 @@ export class UserService implements UserServiceInterface{
         return null
     }
 
+    private checkIfRoleWasProvided(role: string | undefined): Role {
+        if (!role) {
+            return Role.USER;
+        }
+        const lowerCaseRole = role.toLowerCase();
+        if (lowerCaseRole === "admin") {
+            return Role.ADMIN;
+        }
+        if (lowerCaseRole === "user") {
+            return Role.USER;
+        }
+        throw new Error("Invalid role provided");
+    }
 }
