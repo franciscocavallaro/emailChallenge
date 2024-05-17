@@ -2,8 +2,8 @@
   "swagger": "2.0",
   "info": {
     "version": "1.0.0",
-    "title": "My API",
-    "description": "Documentation of my API"
+    "title": "Email Challenge API",
+    "description": "API to register a user, login a user, send an email to a user and get the statistics of the users and the emails sent. The API is secured with JWT. The API has two roles: user and admin. The user can register, login and send an email. The admin can get the statistics of the users and the emails sent "
   },
   "host": "localhost:3000",
   "basePath": "/",
